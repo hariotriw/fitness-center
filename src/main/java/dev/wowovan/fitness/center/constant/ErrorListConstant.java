@@ -22,7 +22,7 @@ public class ErrorListConstant {
     // ERROR VALIDATION
     public static final JsonObject ERROR_NAME_VALIDATION = errorValidation("ERROR_NAME_VALIDATION", "please fill the NAME field.");
     public static final JsonObject ERROR_EMAIL_VALIDATION = errorValidation("ERROR_EMAIL_VALIDATION", "please fill the EMAIL field.");
-    public static final JsonObject ERROR_PASSWORD_VALIDATION = errorValidation("ERROR_PASSWORD_VALIDATION", "please fill the PASSWORD field.");
+    public static final JsonObject ERROR_PASSWORD_VALIDATION = errorValidation("ERROR_PASSWORD_VALIDATION", "invalid / wrong password.");
     public static final JsonObject ERROR_PHONE_NUMBER_VALIDATION = errorValidation("ERROR_PHONE_NUMBER_VALIDATION", "please fill the PHONE NUMBER field.");
     public static final JsonObject ERROR_CARD_NUMBER_VALIDATION = errorValidation("ERROR_CARD_NUMBER_VALIDATION", "please fill the CARD NUMBER field.");
     public static final JsonObject ERROR_ACCOUNT_NUMBER_VALIDATION = errorValidation("ERROR_ACCOUNT_NUMBER_VALIDATION", "please fill the ACCOUNT NUMBER field.");
@@ -38,6 +38,8 @@ public class ErrorListConstant {
     // ERROR DATA
     public static final JsonObject ERROR_DATA_NEED_TO_VALIDATE = errorDataValidation("ERROR_DATA_NEED_TO_VALIDATE", "data already submitted before and need to validate.");
     public static final JsonObject ERROR_DATA_ALREADY_EXIST = errorDataValidation("ERROR_DATA_ALREADY_EXIST", "data already exist.");
+    public static final JsonObject ERROR_DATA_INVALID_PAYLOAD = errorDataValidation("ERROR_DATA_INVALID_PAYLOAD", "invalid payload. please try again later.");
+    public static final JsonObject ERROR_DATA_NOT_FOUND = errorDataValidation("ERROR_DATA_NOT_FOUND", "data not found. please check your form or try again later.");
 
     private static JsonObject errorDataValidation(String errCode, String message) {
         return new JsonObject().put("error_code", errCode).put("message", message).put("httpStatus", 400);

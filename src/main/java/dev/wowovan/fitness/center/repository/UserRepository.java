@@ -29,4 +29,15 @@ public class UserRepository {
 
         return user;
     }
+
+    @Transactional
+    public UserModel activateUser(String userId){
+        UserModel user = UserModel.findById(userId);
+		user.memberStatus = ConstantVariable.MEMBER_REGISTERED;
+        user.updatedAt = new Timestamp(System.currentTimeMillis());
+        user.updatedBy = "customer";
+		user.persist();
+
+        return user;
+    }
 }

@@ -1,4 +1,5 @@
 package dev.wowovan.fitness.center.service;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -6,6 +7,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,16 +36,22 @@ public class AuthService {
 	@Inject
 	PaymentDataRepository paymentDataRepository;
 
+	@ConfigProperty(name = "link.activation.base.url")
+	private String linkActivationBaseUrl;
+
 	@Transactional
 	public JsonObject userRegistration(UriInfo uriInfo, JsonObject payload){
 		LocalDateTime reqAt = LocalDateTime.now();
 
 		// Payload Validation
-		if(!payload.containsKey("name"))
-			return ErrorListConstant.ERROR_NAME_VALIDATION;
-
 		if(!payload.containsKey("password"))
 			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
+			
+		if(!payload.containsKey("repassword") || !payload.getString("password").equalsIgnoreCase(payload.getString("repassword")))
+			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
+			
+		if(!payload.containsKey("name"))
+			return ErrorListConstant.ERROR_NAME_VALIDATION;
 
 		if(!payload.containsKey("email"))
 			return ErrorListConstant.ERROR_EMAIL_VALIDATION;
@@ -91,10 +99,72 @@ public class AuthService {
 		userLogin = newUserRegistration(payload.getString("name"), payload.getString("email"), password, 
 							payload.getString("phoneNumber"), cardNumberMasking, tokenDataEncoded, payload.getString("cardholderName"));
 
+		// url / link process
+		String urlActivation = linkActivationBaseUrl
+									.concat("?userLoginId=")
+									.concat(userLogin.userLoginId)
+									.concat("&userId=")
+									.concat(userLogin.userId)
+									.concat("&isActive=true");
 		
+		// TODO OTP Processing
+
+
+		// Response Builder
 		JsonObject response = new JsonObject();
+		response.put("status", "processed");
+		response.put("message", "Success registration. Check your email to activate your account.");
+		response.put("url", urlActivation);
 		response.put("httpStatus", 201);
 		return response;
+	}
+
+	@Transactional
+	public JsonObject userActivation(UriInfo uriInfo, JsonObject payload, Timestamp currentTime){
+		LocalDateTime reqAt = LocalDateTime.now();
+
+		// Payload Validation
+		if(!payload.containsKey("userLoginId"))
+			return ErrorListConstant.ERROR_DATA_INVALID_PAYLOAD;
+			
+		if(!payload.containsKey("userId"))
+			return ErrorListConstant.ERROR_DATA_INVALID_PAYLOAD;
+			
+		if(!payload.containsKey("isActive") || !payload.getBoolean("isActive"))
+			return ErrorListConstant.ERROR_DATA_INVALID_PAYLOAD;
+
+		if(!payload.containsKey("expiredLink"))
+			return ErrorListConstant.ERROR_DATA_INVALID_PAYLOAD;
+
+		// TODO VALIDATION TIMESTAMP
+
+		// Process  Activation
+		String userLoginId = payload.getString("userLoginId");
+		String userId = payload.getString("userId");
+		UserLoginModel userLogin = UserLoginModel.find("userLoginId = ?1 AND userId = ?2 AND isActive = true", userLoginId, userId).firstResult();
+		if(userLogin == null){
+			return ErrorListConstant.ERROR_DATA_NOT_FOUND;
+		}
+
+		UserModel user = UserModel.findById(userId);
+
+		if(user == null){
+			return ErrorListConstant.ERROR_DATA_NOT_FOUND;
+		}
+
+		if(user.memberStatus.equalsIgnoreCase(ConstantVariable.MEMBER_REGISTERED) || user.memberStatus.equalsIgnoreCase(ConstantVariable.MEMBER_NOT_REGISTERED)){
+			return ErrorListConstant.ERROR_DATA_NOT_FOUND; // TODO better mapping
+		}
+
+		userRepository.activateUser(userId);
+
+		// Response Builder
+		JsonObject response = new JsonObject();
+		response.put("status", "success");
+		response.put("message", "Success registration. Account already activated.");
+		response.put("httpStatus", 201);
+		return response;
+	
 	}
 
 	@Transactional
