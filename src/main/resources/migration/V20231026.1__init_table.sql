@@ -27,7 +27,7 @@ CREATE TABLE public.user_login
     user_id                 varchar(36) DEFAULT ''::character varying            NOT NULL,
     email                   varchar(30) DEFAULT ''::character varying            NOT NULL,
     password                text        DEFAULT ''::text                         NOT NULL,
-    isActive                boolean     DEFAULT false                            NOT NULL,
+    is_active                boolean     DEFAULT false                            NOT NULL,
     created_at              timestamp   DEFAULT now()                            NOT NULL,
     created_by              varchar(40) DEFAULT ''::character varying            NOT NULL,
     updated_at              timestamp   DEFAULT '1900-01-01 00:00:00'::timestamp NOT NULL,
@@ -76,7 +76,7 @@ DROP TABLE IF EXISTS public.product;
 CREATE TABLE public.product
 (
     product_id                  varchar(36) DEFAULT ''::character varying            NOT NULL,
-    product_name                varchar(25) DEFAULT ''::character varying            NOT NULL,
+    product_name                varchar(50) DEFAULT ''::character varying            NOT NULL,
     price                       numeric(17,2)                                        NOT NULL,
     product_detail              text        DEFAULT ''::text                         NOT NULL,
     created_at                  timestamp   DEFAULT now()                            NOT NULL,

@@ -1,5 +1,7 @@
 package dev.wowovan.fitness.center.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,5 +22,29 @@ public class UserSubscriptionModel {
     @Id
     @Column(name = "product_id", length = 36, nullable = false)
     public String productId;
+
+    @Column(name = "status_subscription", length = 25, nullable = false)
+    public String statusSubscription;
+
+    @Column(name = "subscribe_at")
+	public Timestamp subscribeAt;
+
+    @Column(name = "training_remaining", nullable = false)
+    public int trainingRemaining = 0;
+
+    @Column(name = "training_duration", nullable = false)
+    public int durationRemaining = 0;
+
+    @Column(name = "created_at", nullable = false)
+	public Timestamp createdAt = Timestamp.valueOf("1900-01-01 00:00:00");
+
+    @Column(name = "created_by", length = 40, nullable = false)
+    public String createdBy;
+
+    @Column(name = "updated_at", nullable = false)
+	public Timestamp updatedAt = Timestamp.valueOf("1900-01-01 00:00:00");
+
+    @Column(name = "updated_by", length = 40, nullable = false)
+    public String updatedBy;
 
 }
