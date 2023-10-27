@@ -10,11 +10,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import dev.wowovan.fitness.center.global.GlobalFunction;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.vertx.core.json.JsonObject;
 
 @Entity
 @Table(name ="user")
-public class UserModel {
+public class UserModel extends PanacheEntityBase{
 	@Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -33,15 +35,17 @@ public class UserModel {
     @Column(name = "member_status", length = 25, nullable = false)
     public String memberStatus;
     
+    @Column(name = "payment_data_id", length = 36, nullable = false)
+    public String paymentDataId;
 
     @Column(name = "created_at", nullable = false)
-	public Timestamp createdAt = Timestamp.valueOf("1900-01-01 00:00:00");
+	public Timestamp createdAt = GlobalFunction.defaultTimestamp();
 
     @Column(name = "created_by", length = 40, nullable = false)
     public String createdBy;
 
     @Column(name = "updated_at", nullable = false)
-	public Timestamp updatedAt = Timestamp.valueOf("1900-01-01 00:00:00");
+	public Timestamp updatedAt = GlobalFunction.defaultTimestamp();
 
     @Column(name = "updated_by", length = 40, nullable = false)
     public String updatedBy;

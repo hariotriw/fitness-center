@@ -3,14 +3,20 @@ package dev.wowovan.fitness.center.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import dev.wowovan.fitness.center.global.GlobalFunction;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.vertx.core.json.JsonObject;
 
-public class OtpHandlerModel {
+@Entity
+@Table(name = "otp_handler")
+public class OtpHandlerModel extends PanacheEntityBase{
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -29,21 +35,20 @@ public class OtpHandlerModel {
     @Column(name = "otp_status", length = 20, nullable = false)
     public String otpStatus;
 
-    @Column(name = "service_id", length = 50, nullable = false)
-    public String serviceId;
+    @Column(name = "otp_service_id", length = 50, nullable = false)
+    public String otpServiceId;
 
-    @Column(name = "service_type", length = 50, nullable = false)
-    public String serviceType;
-
+    @Column(name = "otp_service_type", length = 50, nullable = false)
+    public String otpServiceType;
 
     @Column(name = "created_at", nullable = false)
-	public Timestamp createdAt = Timestamp.valueOf("1900-01-01 00:00:00");
+	public Timestamp createdAt = GlobalFunction.defaultTimestamp();
 
     @Column(name = "created_by", length = 40, nullable = false)
     public String createdBy;
 
     @Column(name = "updated_at", nullable = false)
-	public Timestamp updatedAt = Timestamp.valueOf("1900-01-01 00:00:00");
+	public Timestamp updatedAt = GlobalFunction.defaultTimestamp();
 
     @Column(name = "updated_by", length = 40, nullable = false)
     public String updatedBy;

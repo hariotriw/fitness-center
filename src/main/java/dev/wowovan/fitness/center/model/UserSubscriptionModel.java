@@ -8,12 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import dev.wowovan.fitness.center.global.GlobalFunction;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.vertx.core.json.JsonObject;
 
 @Entity
 @Table(name = "user_subscription")
 @IdClass(UserSubscriptionKey.class)
-public class UserSubscriptionModel {
+public class UserSubscriptionModel extends PanacheEntityBase{
 
     @Id
     @Column(name = "user_id", length = 36, nullable = false)
@@ -36,13 +38,13 @@ public class UserSubscriptionModel {
     public int durationRemaining = 0;
 
     @Column(name = "created_at", nullable = false)
-	public Timestamp createdAt = Timestamp.valueOf("1900-01-01 00:00:00");
+	public Timestamp createdAt = GlobalFunction.defaultTimestamp();
 
     @Column(name = "created_by", length = 40, nullable = false)
     public String createdBy;
 
     @Column(name = "updated_at", nullable = false)
-	public Timestamp updatedAt = Timestamp.valueOf("1900-01-01 00:00:00");
+	public Timestamp updatedAt = GlobalFunction.defaultTimestamp();
 
     @Column(name = "updated_by", length = 40, nullable = false)
     public String updatedBy;
