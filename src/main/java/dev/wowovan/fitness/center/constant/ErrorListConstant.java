@@ -40,9 +40,19 @@ public class ErrorListConstant {
     public static final JsonObject ERROR_DATA_ALREADY_EXIST = errorDataValidation("ERROR_DATA_ALREADY_EXIST", "data already exist.");
     public static final JsonObject ERROR_DATA_INVALID_PAYLOAD = errorDataValidation("ERROR_DATA_INVALID_PAYLOAD", "invalid payload. please try again later.");
     public static final JsonObject ERROR_DATA_NOT_FOUND = errorDataValidation("ERROR_DATA_NOT_FOUND", "data not found. please check your form or try again later.");
+    public static final JsonObject ERROR_EMAIL_NOT_FOUND = errorDataValidation("ERROR_EMAIL_NOT_FOUND", "email not found. please check your form again or register new account.");
+    public static final JsonObject ERROR_PASSWORD_INVALID = errorDataValidation("ERROR_PASSWORD_INVALID", "wrong password. please enter the right password.");
+    
 
     private static JsonObject errorDataValidation(String errCode, String message) {
         return new JsonObject().put("error_code", errCode).put("message", message).put("httpStatus", 400);
+    }
+
+    // ERROR EXPIRED
+    public static final JsonObject ERROR_LINK_EXPIRED = errorExpired("ERROR_LINK_EXPIRED", "links already expired.");
+
+    private static JsonObject errorExpired(String errCode, String message) {
+        return new JsonObject().put("error_code", errCode).put("message", message).put("httpStatus", 401);
     }
 
 }

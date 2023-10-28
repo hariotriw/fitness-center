@@ -29,4 +29,16 @@ public class UserLoginRepository {
 
         return userLogin;
     }
+
+    @Transactional
+    public UserLoginModel userLoginResetPassword(String userLoginId, String password){
+        UserLoginModel userLogin = UserLoginModel.findById(userLoginId);
+		userLogin.password = password;
+		userLogin.isActive = true;
+        userLogin.updatedAt = new Timestamp(System.currentTimeMillis());
+        userLogin.updatedBy = "customer";
+		userLogin.persist();
+
+        return userLogin;
+    }
 }

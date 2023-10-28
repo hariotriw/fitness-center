@@ -49,6 +49,11 @@
       <artifactId>quarkus-smallrye-jwt</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>3.18.1</version> <!-- Use the latest version -->
+  </dependency>
+    <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
       <version>1.70</version>
