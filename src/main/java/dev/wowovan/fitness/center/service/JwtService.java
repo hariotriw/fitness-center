@@ -12,6 +12,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import dev.wowovan.fitness.center.constant.ErrorListConstant;
+import io.vertx.core.json.JsonObject;
+
 @ApplicationScoped
 public class JwtService {
 
@@ -23,13 +26,22 @@ public class JwtService {
     @ConfigProperty(name = "jwt.expire.time")
     long jwtExpTime;
 
-    public DecodedJWT validateToken(String token) {
+    public JsonObject validateToken(String token) throws Exception {
         try {
-            return JWT.require(Algorithm.HMAC256(jwtSecret)).build().verify(token);
+            DecodedJWT jwt = JWT.require(Algorithm.HMAC256(jwtSecret)).build().verify(token);
+            
+            return new JsonObject().put("token", jwt.getToken()).put("subject", jwt.getSubject()); 
         } catch (Exception e) {
             // Token validation failed
-            return null;
+            throw new Exception(ErrorListConstant.ERROR_UNAUTHORIZED.encode(), e.getCause());
         }
+    }
+
+    public String extractBearerToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring("Bearer ".length());
+        }
+        throw new RuntimeException("Invalid Authorization header format");
     }
 
     public String generateToken(String subject) {

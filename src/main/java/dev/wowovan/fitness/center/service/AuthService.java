@@ -186,7 +186,7 @@ public class AuthService {
 			return ErrorListConstant.ERROR_EMAIL_VALIDATION;
 
 		if(!payload.containsKey("newPassword"))
-			return ErrorListConstant.ERROR_EMAIL_VALIDATION;
+			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
 
 		if(!payload.containsKey("reNewPassword") || !payload.getString("newPassword").equals(payload.getString("reNewPassword"))){
 			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
@@ -225,6 +225,46 @@ public class AuthService {
 		JsonObject response = new JsonObject();
 		response.put("status", "success");
 		response.put("message", "Reset password success. password already changed.");
+		response.put("httpStatus", 200);
+		return response;
+	}
+
+	public JsonObject userChangePassword(UriInfo uriInfo, JsonObject payload, Timestamp currentTime){
+		LocalDateTime reqAt = LocalDateTime.now();
+
+		// Payload Validation
+		if(!payload.containsKey("userLoginId"))
+			return ErrorListConstant.ERROR_DATA_INVALID_PAYLOAD;
+
+		if(!payload.containsKey("oldPassword"))
+			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
+
+		if(!payload.containsKey("newPassword"))
+			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
+
+		if(!payload.containsKey("reNewPassword") || !payload.getString("newPassword").equals(payload.getString("reNewPassword"))){
+			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
+		}
+			
+		// account validation
+		UserLoginModel userLogin = UserLoginModel.findById(payload.getString("userLoginId"));
+		if(userLogin == null){
+			return ErrorListConstant.ERROR_DATA_NOT_FOUND;
+		}
+
+		// compare password
+		String oldPassword = GlobalFunction.hashPassword(payload.getString("oldPassword"));
+		if(!oldPassword.equals(userLogin.password))
+			return ErrorListConstant.ERROR_PASSWORD_VALIDATION;
+
+		// process reset password
+		String password = GlobalFunction.hashPassword(payload.getString("newPassword"));
+		userLogin = userLoginRepository.userLoginResetPassword(userLogin.userLoginId, password);
+
+		// Response Builder
+		JsonObject response = new JsonObject();
+		response.put("status", "success");
+		response.put("message", "Change password success. password already changed.");
 		response.put("httpStatus", 200);
 		return response;
 	}

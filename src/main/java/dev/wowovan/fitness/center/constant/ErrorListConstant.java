@@ -3,26 +3,15 @@ package dev.wowovan.fitness.center.constant;
 import io.vertx.core.json.JsonObject;
 
 public class ErrorListConstant {
-    public static final JsonObject GENERAL_ERROR_WAITING = gen("GENERAL_ERROR", "Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi\nSystem is currently having a problem, please try again in a moment");
-    public static final JsonObject ERROR_CALL_PARTNER_WAITING = gen("ERROR_CALL_PARTNER", "Kesalahan saat memanggil sistem mitra\nError when calling partner system");
-    public static final JsonObject PARTNER_SYSTEM_ERROR_WAITING = gen("PARTNER_SYSTEM_ERROR", "Sistem mitra mengalami gangguan\nPartner system error");
-
-    public static final JsonObject GENERAL_ERROR_FAILED = genFailed("GENERAL_ERROR", "Sistem sedang mengalami gangguan, silahkan coba beberapa saat lagi\nSystem is currently having a problem, please try again in a moment");
-    public static final JsonObject ERROR_CALL_PARTNER_FAILED = genFailed("ERROR_CALL_PARTNER", "Kesalahan saat memanggil sistem mitra\nError when calling partner system");
-    public static final JsonObject PARTNER_SYSTEM_ERROR_FAILED = genFailed("PARTNER_SYSTEM_ERROR", "Sistem mitra mengalami gangguan\nPartner system error");
-
+    public static final JsonObject GENERAL_ERROR = gen("GENERAL_ERROR", "System is currently having a problem, please try again in a moment");
     private static JsonObject gen(String errCode, String message) {
         return new JsonObject().put("error_code", errCode).put("message", message);
-    }
-
-    private static JsonObject genFailed(String errCode, String message) {
-        return new JsonObject().put("error_code", errCode).put("status", errCode).put("message", message).put("chargeStatus", ConstantVariable.STATUS_FAILED).put("bindingStatus", ConstantVariable.STATUS_FAILED);
     }
 
     // ERROR VALIDATION
     public static final JsonObject ERROR_NAME_VALIDATION = errorValidation("ERROR_NAME_VALIDATION", "please fill the NAME field.");
     public static final JsonObject ERROR_EMAIL_VALIDATION = errorValidation("ERROR_EMAIL_VALIDATION", "please fill the EMAIL field.");
-    public static final JsonObject ERROR_PASSWORD_VALIDATION = errorValidation("ERROR_PASSWORD_VALIDATION", "invalid / wrong password.");
+    public static final JsonObject ERROR_PASSWORD_VALIDATION = errorValidation("ERROR_PASSWORD_VALIDATION", "invalid / not match password.");
     public static final JsonObject ERROR_PHONE_NUMBER_VALIDATION = errorValidation("ERROR_PHONE_NUMBER_VALIDATION", "please fill the PHONE NUMBER field.");
     public static final JsonObject ERROR_CARD_NUMBER_VALIDATION = errorValidation("ERROR_CARD_NUMBER_VALIDATION", "please fill the CARD NUMBER field.");
     public static final JsonObject ERROR_ACCOUNT_NUMBER_VALIDATION = errorValidation("ERROR_ACCOUNT_NUMBER_VALIDATION", "please fill the ACCOUNT NUMBER field.");
@@ -48,8 +37,9 @@ public class ErrorListConstant {
         return new JsonObject().put("error_code", errCode).put("message", message).put("httpStatus", 400);
     }
 
-    // ERROR EXPIRED
+    // ERROR OTHER
     public static final JsonObject ERROR_LINK_EXPIRED = errorExpired("ERROR_LINK_EXPIRED", "links already expired.");
+    public static final JsonObject ERROR_UNAUTHORIZED = errorExpired("ERROR_UNAUTHORIZED", "Unauthorized. you are unauthorized to do this action, please relogin or contact admin.");
 
     private static JsonObject errorExpired(String errCode, String message) {
         return new JsonObject().put("error_code", errCode).put("message", message).put("httpStatus", 401);

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import dev.wowovan.fitness.center.constant.ConstantVariable;
 import dev.wowovan.fitness.center.global.GlobalFunction;
 import dev.wowovan.fitness.center.model.UserModel;
+import io.vertx.core.json.JsonObject;
 
 @ApplicationScoped
 public class UserRepository {
@@ -25,6 +26,26 @@ public class UserRepository {
         user.createdBy = "system";
         user.updatedAt = GlobalFunction.defaultTimestamp();
         user.updatedBy = "system";
+		user.persist();
+
+        return user;
+    }
+
+    @Transactional
+    public UserModel updateUser(String userId, JsonObject payload,String paymentDataId){
+        UserModel user = UserModel.findById(userId);
+        if(payload.containsKey("name")){
+            user.name = payload.getString("name");
+        }
+        if(payload.containsKey("phoneNumber")){
+            user.phoneNumber = payload.getString("phoneNumber");
+        }
+        if(payload.containsKey("dob")){
+            user.dob = payload.getString("dob");
+        }
+        user.paymentDataId = paymentDataId;
+        user.updatedAt = new Timestamp(System.currentTimeMillis());
+        user.updatedBy = "customer";
 		user.persist();
 
         return user;
