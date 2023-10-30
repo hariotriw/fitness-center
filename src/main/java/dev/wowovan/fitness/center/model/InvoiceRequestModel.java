@@ -18,6 +18,8 @@ import io.vertx.core.json.JsonObject;
 @Table(name = "invoice_request")
 public class InvoiceRequestModel extends PanacheEntityBase{
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "invoice_id", length = 36, nullable = false)
     public String invoiceId;
 
@@ -35,6 +37,9 @@ public class InvoiceRequestModel extends PanacheEntityBase{
 
     @Column(name = "amount", nullable = false)
 	public Double amount = (double) 0.0;
+
+    @Column(name = "duration", nullable = false)
+    public int duration = 0;
 
     @Column(name = "created_at", nullable = false)
 	public Timestamp createdAt = GlobalFunction.defaultTimestamp();

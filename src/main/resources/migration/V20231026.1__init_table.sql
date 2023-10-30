@@ -115,6 +115,7 @@ CREATE TABLE public.invoice_request
     user_id                     varchar(36) DEFAULT ''::character varying            NOT NULL,
     product_id                  varchar(36) DEFAULT ''::character varying            NOT NULL,
     amount                      numeric(17,2)                                        NOT NULL,
+    duration                    integer     DEFAULT 0                                NOT NULL,
     invoice_at                  timestamp   DEFAULT now()                            NOT NULL,
     created_at                  timestamp   DEFAULT now()                            NOT NULL,
     created_by                  varchar(40) DEFAULT ''::character varying            NOT NULL,

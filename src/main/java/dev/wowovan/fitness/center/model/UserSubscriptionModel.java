@@ -35,7 +35,7 @@ public class UserSubscriptionModel extends PanacheEntityBase{
     public int trainingRemaining = 0;
 
     @Column(name = "training_duration", nullable = false)
-    public int durationRemaining = 0;
+    public int trainingDuration = 0;
 
     @Column(name = "created_at", nullable = false)
 	public Timestamp createdAt = GlobalFunction.defaultTimestamp();

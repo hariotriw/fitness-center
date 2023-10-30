@@ -1,6 +1,7 @@
 package dev.wowovan.fitness.center.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import dev.wowovan.fitness.center.global.GlobalFunction;
 import dev.wowovan.fitness.center.model.PaymentDataModel;
 import dev.wowovan.fitness.center.model.UserLoginModel;
 import dev.wowovan.fitness.center.model.UserModel;
+import dev.wowovan.fitness.center.model.UserSubscriptionModel;
 import dev.wowovan.fitness.center.repository.PaymentDataRepository;
 import dev.wowovan.fitness.center.repository.UserLoginRepository;
 import dev.wowovan.fitness.center.repository.UserRepository;
@@ -124,8 +126,13 @@ public class UserService {
             paymentDataObj.put("cardNumberMasking", paymentData.cardNumberMasking.isBlank() ? "-" : paymentData.cardNumberMasking)
                     .put("cardHolderName", paymentData.cardHolderName.isBlank() ? "-" : paymentData.cardHolderName);
         }
+
+        // TODO mapping product name etc format
+        List<UserSubscriptionModel> users = UserSubscriptionModel.find("userId = ?1", user.userId).list();
+
         response.put("data", new JsonObject()
                 .put("userData", userData)
+                .put("userSubsctiptionData", users)
                 .put("paymentData", paymentDataObj));
         response.put("status", "success");
 		response.put("message", "seccess fetching data.");

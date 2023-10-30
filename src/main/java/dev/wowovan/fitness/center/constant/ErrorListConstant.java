@@ -31,6 +31,7 @@ public class ErrorListConstant {
     public static final JsonObject ERROR_DATA_NOT_FOUND = errorDataValidation("ERROR_DATA_NOT_FOUND", "data not found. please check your form or try again later.");
     public static final JsonObject ERROR_EMAIL_NOT_FOUND = errorDataValidation("ERROR_EMAIL_NOT_FOUND", "email not found. please check your form again or register new account.");
     public static final JsonObject ERROR_PASSWORD_INVALID = errorDataValidation("ERROR_PASSWORD_INVALID", "wrong password. please enter the right password.");
+    public static final JsonObject ERROR_USER_ALREADY_SUBSCRIBE = errorDataValidation("ERROR_USER_ALREADY_SUBSCRIBE", "user already subscribe the package. please select another package.");
     
 
     private static JsonObject errorDataValidation(String errCode, String message) {
