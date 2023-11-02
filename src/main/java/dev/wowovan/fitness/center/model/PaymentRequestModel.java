@@ -18,6 +18,8 @@ import io.vertx.core.json.JsonObject;
 @Table(name = "payment_request")
 public class PaymentRequestModel extends PanacheEntityBase{
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "payment_id", length = 36, nullable = false)
     public String paymentId;
 

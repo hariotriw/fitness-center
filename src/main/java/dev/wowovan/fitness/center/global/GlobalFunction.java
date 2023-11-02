@@ -2,13 +2,27 @@ package dev.wowovan.fitness.center.global;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.Base64;
 
 public class GlobalFunction {
+    private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String NUMBER = "0123456789";
+    private static final SecureRandom RANDOM = new SecureRandom();
     
     public static Timestamp defaultTimestamp(){
         return Timestamp.valueOf("1900-01-01 00:00:00");
+    }
+
+    public static String generateRandomString(int length) {
+        StringBuilder stringBuilder = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            int randomIndex = RANDOM.nextInt(NUMBER.length());
+            char randomChar = NUMBER.charAt(randomIndex);
+            stringBuilder.append(randomChar);
+        }
+        return stringBuilder.toString();
     }
 
     public static String maskString(String strText, int start, int end, char maskChar) {

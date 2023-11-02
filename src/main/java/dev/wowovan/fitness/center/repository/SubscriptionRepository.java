@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 
 import dev.wowovan.fitness.center.constant.ConstantVariable;
 import dev.wowovan.fitness.center.global.GlobalFunction;
+import dev.wowovan.fitness.center.model.InvoiceRequestModel;
+import dev.wowovan.fitness.center.model.ProductModel;
 import dev.wowovan.fitness.center.model.UserModel;
 import dev.wowovan.fitness.center.model.UserSubscriptionKey;
 import dev.wowovan.fitness.center.model.UserSubscriptionModel;
@@ -49,6 +51,18 @@ public class SubscriptionRepository {
 		userSubscribe.persist();
 
         return userSubscribe;
+    }
+
+    @Transactional
+    public UserSubscriptionModel updateSuccessPayment(UserSubscriptionModel userSubscription, InvoiceRequestModel invoice){
+        userSubscription.statusSubscription = ConstantVariable.SUBSCRIPTION_STATUS_SUBSCRIBED;
+        userSubscription.trainingRemaining += invoice.duration;
+        userSubscription.trainingDuration += invoice.duration;
+        userSubscription.updatedAt = new Timestamp(System.currentTimeMillis());
+        userSubscription.updatedBy = "customer";
+		userSubscription.persist();
+
+        return userSubscription;
     }
 
     

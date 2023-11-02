@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import dev.wowovan.fitness.center.constant.ConstantVariable;
 import dev.wowovan.fitness.center.global.GlobalFunction;
 import dev.wowovan.fitness.center.model.InvoiceRequestModel;
+import dev.wowovan.fitness.center.model.PaymentRequestModel;
 
 @ApplicationScoped
 public class InvoiceRepository {
@@ -25,6 +26,16 @@ public class InvoiceRepository {
         invoice.createdBy = "system";
         invoice.updatedAt = GlobalFunction.defaultTimestamp();
         invoice.updatedBy = "system";
+
+        invoice.persist();
+        return invoice;
+    }    
+
+    @Transactional
+    public InvoiceRequestModel updateSuccessPayment(InvoiceRequestModel invoice, Timestamp invoiceAt){
+        invoice.invoiceStatus = ConstantVariable.INVOICE_STATUS_PAID;
+        invoice.updatedAt = new Timestamp(System.currentTimeMillis());
+        invoice.updatedBy = "customer";
 
         invoice.persist();
         return invoice;

@@ -32,6 +32,14 @@ public class ErrorListConstant {
     public static final JsonObject ERROR_EMAIL_NOT_FOUND = errorDataValidation("ERROR_EMAIL_NOT_FOUND", "email not found. please check your form again or register new account.");
     public static final JsonObject ERROR_PASSWORD_INVALID = errorDataValidation("ERROR_PASSWORD_INVALID", "wrong password. please enter the right password.");
     public static final JsonObject ERROR_USER_ALREADY_SUBSCRIBE = errorDataValidation("ERROR_USER_ALREADY_SUBSCRIBE", "user already subscribe the package. please select another package.");
+    public static final JsonObject ERROR_ACTION_NOT_AUTHORIZED = errorDataValidation("ERROR_ACTION_NOT_AUTHORIZED", "user not authorized to do this action.");
+    
+    // ERROR INVOICE/PAYMENT
+    public static final JsonObject ERROR_INVOICE_ALREADY_PAID = errorDataValidation("ERROR_INVOICE_ALREADY_PAID", "invoice already paid. please try again later.");
+    public static final JsonObject ERROR_INVOICE_ALREADY_FAILED = errorDataValidation("ERROR_INVOICE_ALREADY_FAILED", "invoice already failed. please create new billing again to avoid double payment.");
+    public static final JsonObject ERROR_INVALID_CVV = errorDataValidation("ERROR_INVALID_CVV", "invalid cvv/cvn. please input the correct cvv/cvn.");
+    public static final JsonObject ERROR_OTP_INVALID = errorDataValidation("ERROR_OTP_INVALID", "invalid otp code. please input the correct otp.");
+    public static final JsonObject ERROR_OTP_EXPIRED = errorDataValidation("ERROR_OTP_EXPIRED", "otp code already expired. please restart the payment or try again later.");
     
 
     private static JsonObject errorDataValidation(String errCode, String message) {
