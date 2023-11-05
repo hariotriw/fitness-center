@@ -53,6 +53,9 @@ public class PaymentRequestService {
     @Inject
     PaymentRepository paymentRepository;
 
+    @Inject
+    MockupService mockupService;
+
 
     public JsonObject getInvoice(UriInfo uriInfo, JsonObject payload){
         if(!payload.containsKey("userLoginIdJwt"))
@@ -220,6 +223,20 @@ public class PaymentRequestService {
             return ErrorListConstant.ERROR_ACTION_NOT_AUTHORIZED;
         }
 
+        // Call Payment Gateway
+        JsonObject respGw = mockupService.mockPayment(uriInfo, payload);
+        if(!respGw.getString("paymentStatus").equalsIgnoreCase(ConstantVariable.STATUS_SUCCESS)){
+            JsonObject response = new JsonObject();
+            response.put("status", respGw.getString("paymentStatus"));
+            response.put("message", "");
+
+            response.put("httpStatus", 200);
+            return response;
+        }
+
+        // Mockup Emit kafka
+        mockupService.mockEmitPayment(uriInfo, payload, respGw);
+
         // Save payment
         payment = paymentRepository.updateSuccessPayment(payment, paymentAt);
         invoice = invoiceRepository.updateSuccessPayment(invoice, paymentAt);
@@ -230,7 +247,6 @@ public class PaymentRequestService {
         response.put("status", "success");
 		response.put("message", "congrats you successfully subscribing to fitness center.");
         response.put("data", payment);
-
 		response.put("httpStatus", 200);
         return response;
     }
