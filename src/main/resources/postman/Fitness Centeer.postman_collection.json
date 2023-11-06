@@ -1,0 +1,617 @@
+{
+	"info": {
+		"_postman_id": "2cdd2629-fd94-496b-9788-ce9f4583521f",
+		"name": "Fitness Centeer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14118944"
+	},
+	"item": [
+		{
+			"name": "testing",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/testing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"testing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"john doe\",\r\n    \"email\": \"johndoe1@gmail.com\",\r\n    \"password\": \"password123\",\r\n    \"repassword\": \"password123\",\r\n    \"phoneNumber\": \"6281212341234\",\r\n    \"cardNumber\": \"4000000000001091\",\r\n    \"cvv\": \"123\",\r\n    \"expiredDate\": \"05/25\",\r\n    \"cardholderName\": \"wowo\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/v1/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"v1",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activate user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/auth/links?userLoginId=aa22c512-4ce5-41d2-abcd-3d3185e068d2&userId=50253feb-5f6e-42cb-957c-fefb4dbba5eb&expiredLink=2023-10-28 12:55:17&isActive=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"links"
+					],
+					"query": [
+						{
+							"key": "userLoginId",
+							"value": "aa22c512-4ce5-41d2-abcd-3d3185e068d2"
+						},
+						{
+							"key": "userId",
+							"value": "50253feb-5f6e-42cb-957c-fefb4dbba5eb"
+						},
+						{
+							"key": "expiredLink",
+							"value": "2023-10-28 12:55:17"
+						},
+						{
+							"key": "isActive",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"johndoe1@gmail.com\",\r\n    \"password\": \"password123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset password by email (step 1)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"johndoe1@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/v1/reset-password-by-email",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"v1",
+						"reset-password-by-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset password (step 2)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userLoginId\": \"aa22c512-4ce5-41d2-abcd-3d3185e068d2\",\r\n    \"email\": \"johndoe1@gmail.com\",\r\n    \"newPassword\": \"password1234\",\r\n    \"reNewPassword\": \"password1234\",\r\n    \"expiredLink\": \"2023-10-28 16:54:11\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/v1/reset-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"v1",
+						"reset-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change password",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYTIyYzUxMi00Y2U1LTQxZDItYWJjZC0zZDMxODVlMDY4ZDIiLCJleHAiOjE2OTg1OTM3NjMsImlhdCI6MTY5ODU5MTk2M30.E-Vo3fW4Q6MeXwG-Ern2K8t3ZW3qBkD3XawaVlQnDa8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userLoginId\": \"aa22c512-4ce5-41d2-abcd-3d3185e068d2\",\r\n    \"oldPassword\": \"password123\",\r\n    \"newPassword\": \"password1234\",\r\n    \"reNewPassword\": \"password1234\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/v1/change-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"v1",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user info",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYTIyYzUxMi00Y2U1LTQxZDItYWJjZC0zZDMxODVlMDY4ZDIiLCJleHAiOjE2OTg1OTk5OTQsImlhdCI6MTY5ODU5ODE5NH0.ZO81rmPwGAQoNuXZUqIrn7XQo8wwXL7vDeAI_erYugQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/user/v1/user-info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"v1",
+						"user-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user info",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYTIyYzUxMi00Y2U1LTQxZDItYWJjZC0zZDMxODVlMDY4ZDIiLCJleHAiOjE2OTg1OTg3MDUsImlhdCI6MTY5ODU5NjkwNX0.jVJIwx0H_rq1ooHzIltfRsq3Y6E7q88Nz3kCKJ1CsgI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"john doeloe\",\r\n    \"phoneNumber\": \"6281212341234\",\r\n    \"dob\": \"08-08-2008\",\r\n    \"cardNumber\": \"4000000000001091\",\r\n    \"cvv\": \"123\",\r\n    \"expiredDate\": \"09/25\",\r\n    \"cardholderName\": \"wowo\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/v1/user-info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"v1",
+						"user-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all products",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYTIyYzUxMi00Y2U1LTQxZDItYWJjZC0zZDMxODVlMDY4ZDIiLCJleHAiOjE2OTg2NjQ3MTEsImlhdCI6MTY5ODY2MjkxMX0.9F3cjWm0tvB9IiuqXSClGx5ZkxbK9CLTvvaVY5DbewI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/subscription/v1/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"subscription",
+						"v1",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subscribe product",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiOWRjNjY0My02NGQ4LTQ4NDMtOWY2Ni0xYjEyNzU2YTM5OTMiLCJleHAiOjE2OTg5NDUyNzQsImlhdCI6MTY5ODk0MzQ3NH0.bdwVDe9oDTSF3zOhRc5AlIgehKp_QGt6goG2INtVy1Y",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": \"fitness-01\",\r\n    \"duration\": 10\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/subscription/v1/subscribe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"subscription",
+						"v1",
+						"subscribe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inquiry Payment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiOWRjNjY0My02NGQ4LTQ4NDMtOWY2Ni0xYjEyNzU2YTM5OTMiLCJleHAiOjE2OTg5NDUyNzQsImlhdCI6MTY5ODk0MzQ3NH0.bdwVDe9oDTSF3zOhRc5AlIgehKp_QGt6goG2INtVy1Y",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/payment/v1/invoice/2a9e252b-8b47-4553-9c10-fe89288fc474",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"payment",
+						"v1",
+						"invoice",
+						"2a9e252b-8b47-4553-9c10-fe89288fc474"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "payment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiOWRjNjY0My02NGQ4LTQ4NDMtOWY2Ni0xYjEyNzU2YTM5OTMiLCJleHAiOjE2OTg5NDgwMzQsImlhdCI6MTY5ODk0NjIzNH0.bj_eSFJ0xGkw8uxW0rBxazk2HqRb2mAt9cALEWmQlm8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"invoiceId\": \"6296fc20-4e2e-493b-8638-d7c342243723\",\r\n    \"productId\": \"fitness-01\",\r\n    \"duration\": 10,\r\n    \"paymentDataId\": \"538e75e7-2270-478c-a540-17eff668944c\",\r\n    \"amount\": 2000000.0,\r\n    \"cvv\": \"123\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/payment/v1/payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"payment",
+						"v1",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify payment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiOWRjNjY0My02NGQ4LTQ4NDMtOWY2Ni0xYjEyNzU2YTM5OTMiLCJleHAiOjE2OTg5NTA3MzYsImlhdCI6MTY5ODk0ODkzNn0.V78WuKaIHuxXsonjtdF9RRPxnaOU7CuXtOprjcCOqHI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"paymentRequestId\": \"40b5350b-f035-4927-b4a2-6c9af6eca964\",\r\n    \"otp\": \"111112\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/payment/v1/verify-payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"payment",
+						"v1",
+						"verify-payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extend subscribe",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiOWRjNjY0My02NGQ4LTQ4NDMtOWY2Ni0xYjEyNzU2YTM5OTMiLCJleHAiOjE2OTg2ODMxMDMsImlhdCI6MTY5ODY4MTMwM30.W7IKTwjABk1Rqqeom1WV0S-03v-aENrHo3SZolz__oM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": \"fitness-01\",\r\n    \"duration\": 10\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/subscription/v1/extend",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"subscription",
+						"v1",
+						"extend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel subscribe",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiOWRjNjY0My02NGQ4LTQ4NDMtOWY2Ni0xYjEyNzU2YTM5OTMiLCJleHAiOjE2OTg2ODMxMDMsImlhdCI6MTY5ODY4MTMwM30.W7IKTwjABk1Rqqeom1WV0S-03v-aENrHo3SZolz__oM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": \"fitness-01\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/subscription/v1/cancel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"subscription",
+						"v1",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/v1/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
